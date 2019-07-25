@@ -1,0 +1,20 @@
+﻿
+@*
+    IEnumerable is simply an interface in which we can
+    loop through the given type 
+*@
+@model IEnumerable<VideoGame>
+
+@{
+    ViewData["Title"] = "Game Library";
+}
+
+
+
+<h1>Browse Game Library</h1>
+
+
+
+<a asp-action="Add" asp-controller="Library">
+    Add Game
+</a>
