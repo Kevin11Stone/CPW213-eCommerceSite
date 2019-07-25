@@ -14,15 +14,21 @@ namespace eCommerce.Controllers
         private readonly GameContext _context;
 
 
+
+
         public LibraryController(GameContext context)
         {
-            context = _context;
+            _context = context;
         }
+
+
 
         public IActionResult Index()
         {
             return View();
         }
+
+
 
         // get request for library/add, simply returns view
         [HttpGet]
@@ -41,8 +47,7 @@ namespace eCommerce.Controllers
             if (ModelState.IsValid)
             {
                 // add to database
-                _context.Add(game);
-                _context.SaveChanges();
+                VideoGameDb.Add(game, _context);
 
 
                 return RedirectToAction("Index");
@@ -53,6 +58,8 @@ namespace eCommerce.Controllers
             return View(game);
 
         }
+
+
 
 
     }
