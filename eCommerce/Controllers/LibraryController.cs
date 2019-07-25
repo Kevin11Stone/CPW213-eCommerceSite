@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eCommerce.Data;
 using eCommerce.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,15 @@ namespace eCommerce.Controllers
 {
     public class LibraryController : Controller
     {
+        // can't reassign _context
+        private readonly GameContext _context;
+
+
+        public LibraryController(GameContext context)
+        {
+            context = _context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -21,6 +31,9 @@ namespace eCommerce.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
         public IActionResult Add(VideoGame game)
         {
@@ -28,6 +41,10 @@ namespace eCommerce.Controllers
             if (ModelState.IsValid)
             {
                 // add to database
+                _context.Add(game);
+                _context.SaveChanges();
+
+
                 return RedirectToAction("Index");
 
             }
