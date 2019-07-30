@@ -14,18 +14,18 @@ namespace eCommerce.Controllers
         private readonly GameContext _context;
 
 
-
-
         public LibraryController(GameContext context)
         {
             _context = context;
         }
 
 
-
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<VideoGame> allGames = await VideoGameDb.GetAllGames(_context);
+            // the view as access to all of the data
+            return View(allGames);
         }
 
 
