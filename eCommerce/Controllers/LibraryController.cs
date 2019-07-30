@@ -60,6 +60,13 @@ namespace eCommerce.Controllers
         }
 
 
+        public async Task<IActionResult> Update(int id)
+        {
+            VideoGame game = await VideoGameDb.GetGameById(id, _context);
+
+            return View(game);
+        }
+
 
 
     }
