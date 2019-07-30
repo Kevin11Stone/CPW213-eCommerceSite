@@ -21,13 +21,15 @@ namespace eCommerce.Data
         /// <param name="g">The game to add</param>
         /// <param name="context">The database context to use</param>
         /// <returns>VideoGame with ID populated</returns>
-        public static VideoGame Add(VideoGame g, GameContext context)
+        public static async Task<VideoGame> Add(VideoGame g, GameContext context)
         {
-            context.Add(g);
-            context.SaveChanges();
-
+            await context.AddAsync(g);
+            await context.SaveChangesAsync();
             return g;
         }
+
+
+
 
 
 

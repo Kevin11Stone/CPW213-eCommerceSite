@@ -41,13 +41,13 @@ namespace eCommerce.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(VideoGame game)
+        public async Task<IActionResult> Add(VideoGame game)
         {
             // model binding, if all data annotations validate
             if (ModelState.IsValid)
             {
                 // add to database
-                VideoGameDb.Add(game, _context);
+                await VideoGameDb.Add(game, _context);
 
 
                 return RedirectToAction("Index");
