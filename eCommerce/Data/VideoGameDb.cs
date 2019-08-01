@@ -85,6 +85,22 @@ namespace eCommerce.Data
 
 
 
+
+
+
+        public static async Task DeleteById(int id, GameContext context)
+        {
+            // create video game with the id we want to remove
+            VideoGame g = new VideoGame()
+            {
+                Id = id
+            };
+
+            // tell context we want to remove this game from the database, then save
+            context.Entry(g).State = EntityState.Deleted;
+            await context.SaveChangesAsync();
+
+        }
     }
 
 
