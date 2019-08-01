@@ -29,6 +29,9 @@ namespace eCommerce.Data
             return g;
         }
 
+
+
+
         /// <summary>
         /// Retrieves all games sorted in alphabetical order by
         /// title
@@ -46,6 +49,24 @@ namespace eCommerce.Data
                                         .ToListAsync();
             return games;
         }
+
+
+
+        /// <summary>
+        /// Updates a single video game
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<VideoGame> UpdateGame(VideoGame g, GameContext context)
+        {
+            context.Update(g);
+            await context.SaveChangesAsync();
+            return g;
+        }
+
+
+
 
         /// <summary>
         /// Gets a game with a specified Id. If not game is found,
