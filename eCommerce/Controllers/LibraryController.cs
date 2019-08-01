@@ -86,6 +86,23 @@ namespace eCommerce.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            VideoGame game = await VideoGameDb.GetGameById(id, _context);
+            return View(game);
+        }
+        
+
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await VideoGameDb.DeleteById(id, _context);
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }
