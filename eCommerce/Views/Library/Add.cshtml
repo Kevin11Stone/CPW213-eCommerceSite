@@ -10,25 +10,30 @@
 
 <form method="post">
 
-    <label asp-for="Title"></label>
-    <input asp-for="Title" />
-    <span asp-validation-for="Title"></span>
-    <br />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
 
-    <label asp-for="Rating"></label>
-    <input asp-for="Rating" />
-    <span asp-validation-for="Rating"></span>
-    <br />
+    <div class="form-group">
+        <label asp-for="Rating"></label>
+        <input asp-for="Rating" />
+        <span asp-validation-for="Rating"></span>
+    </div>
 
-    <label asp-for="Description"></label>
-    <input asp-for="Description" />
-    <span asp-validation-for="Description"></span>
-    <br />
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
 
-    <label asp-for="Price"></label>
-    <input asp-for="Price" />
-    <span asp-validation-for="Price"></span>
-    <br />
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+    </div>
+
 
     <input type="submit" value="Add Game" />
 
