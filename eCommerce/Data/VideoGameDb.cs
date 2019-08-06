@@ -14,6 +14,29 @@ namespace eCommerce.Data
     public static class VideoGameDb
     {
 
+
+        /// <summary>
+        /// Returns one page worth of products. Products are sorted alphabetically by title.
+        /// </summary>
+        /// <param name="context">The database context</param>
+        /// <param name="pageNum">The page number of the products you want</param>
+        /// <param name="pageSize">The number of products per page</param>
+        /// <returns></returns>
+         public static async Task<List<VideoGame>> GetGamesByPage(GameContext context, int pageNum, int pageSize)
+         {
+
+            // make sure to call skip Before take
+            // make sure orderBy comes first
+            List<VideoGame> games = await context.VideoGames
+                                                 .OrderBy(vg => vg.Title)
+                                                 .Skip( (pageNum - 1) * pageSize )
+                                                 .Take(pageSize)                                               
+                                                 .ToListAsync();
+            return games;
+         }
+
+
+
         // had to add using
 
         /// <summary>
@@ -101,6 +124,14 @@ namespace eCommerce.Data
             await context.SaveChangesAsync();
 
         }
+
+
+      
+
+
+
+
+
     }
 
 

@@ -20,12 +20,17 @@ namespace eCommerce.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        [HttpGet] // made id optional using ?
+        public async Task<IActionResult> Index(int? id)
         {
-            List<VideoGame> allGames = await VideoGameDb.GetAllGames(_context);
+            // id is the page number coming in
+            // null-coalescing operator = if id is not null, set page to it. if null, use 1
+            int page = id ?? 1;
+
+            List<VideoGame> games = await VideoGameDb.GetGamesByPage(_context, page, 3);
+
             // the view as access to all of the data
-            return View(allGames);
+            return View(games);
         }
 
 
