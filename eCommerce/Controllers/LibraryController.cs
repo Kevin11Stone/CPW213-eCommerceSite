@@ -26,9 +26,14 @@ namespace eCommerce.Controllers
             // id is the page number coming in
             // null-coalescing operator = if id is not null, set page to it. if null, use 1
             int page = id ?? 1;
+            const int PageSize = 3;
+            List<VideoGame> games = await VideoGameDb.GetGamesByPage(_context, page, PageSize);
 
-            List<VideoGame> games = await VideoGameDb.GetGamesByPage(_context, page, 3);
 
+            int totalPages = await VideoGameDb.GetTotalPages(_context, PageSize);
+
+            ViewData["Pages"] = totalPages;
+            ViewData["CurrentPage"] = page;
             // the view as access to all of the data
             return View(games);
         }

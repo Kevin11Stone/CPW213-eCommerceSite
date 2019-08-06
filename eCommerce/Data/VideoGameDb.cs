@@ -37,6 +37,26 @@ namespace eCommerce.Data
 
 
 
+        /// <summary>
+        /// Returns the total number of pages needed to have <paramref name="pageSize"/> amount of products per page
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public static async Task<int> GetTotalPages(GameContext context, int pageSize)
+        {
+            int totalNumGames = await context.VideoGames.CountAsync();
+
+            double pages = (double)totalNumGames / pageSize;
+
+            // convert back to int with cast, had to cast to double due to rounding issues, ceiling rounds up
+            return (int)Math.Ceiling(pages);
+        }
+
+
+
+
+
         // had to add using
 
         /// <summary>
