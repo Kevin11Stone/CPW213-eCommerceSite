@@ -3,14 +3,14 @@ This is an ASP.NET Core MVC sample site. As a class, we learned the fundamentals
 practices using GitHub. This repository displays concepts learned in CPW 213: .NET Web Programming through the implementation
 of a basic eCommerce website. 
 
-## Prerequisites
-```
+### Prerequisites
+
 Prerequisites to run the project locally include: 
-Visual Studio 2017+
+- Visual Studio 2017+
+- [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.2)
 
 
-```
-### A few useful resources
+### A few interesting resources 
 
 - [Intro to the ASP.NET MVC pattern](https://dotnet.microsoft.com/apps/aspnet/mvc)
 - [Overview of Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
