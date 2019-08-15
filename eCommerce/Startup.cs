@@ -33,6 +33,16 @@ namespace eCommerce
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // configure session management
+            // register, don't forget to add accessor
+            services.AddHttpContextAccessor();
+            services.AddDistributedMemoryCache(); // stores session in-memory, below is just an in-line function
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
+            
 
             string connection = Configuration.GetConnectionString("GameDbConnection");
 
@@ -77,6 +87,7 @@ namespace eCommerce
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession(); // use the configured session from up above
 
             app.UseMvc(routes =>
             {
