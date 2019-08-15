@@ -6,7 +6,12 @@ of a basic eCommerce website.
 ## Prerequisites
 ```
 Prerequisites to run the project locally include: 
+Visual Studio 2017+
+
 
 ```
 ### A few useful resources
-Add a few links to useful resources for the project (ASP.NET MVC, CRUD Functionality, Entity Framework Core, etc)
+
+- [Intro to the ASP.NET MVC pattern](https://dotnet.microsoft.com/apps/aspnet/mvc)
+- [Overview of Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
+- [CRUD Tutorial (with Entity Framework in ASP.NET MVC)](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)
