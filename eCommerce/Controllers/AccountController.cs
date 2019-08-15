@@ -86,6 +86,17 @@ namespace eCommerce.Controllers
         }
 
 
+
+
+
+        public IActionResult Logout()
+        {
+            // clear all session data, display message if desired, redirect to homePage
+            _httpAccessor.HttpContext.Session.Clear();
+            TempData["Message"] = "You have been logged out";
+            return RedirectToAction("Index", "Home");
+        }
+
         
 
 
