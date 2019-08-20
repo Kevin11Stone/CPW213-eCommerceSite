@@ -42,6 +42,9 @@ namespace eCommerce.Controllers
             {
                 await MemberDb.Add(_context, m);
 
+                SessionHelper.LogUserIn(_httpAccessor, m.MemberId, m.Username);
+
+
                 TempData["Message"] = "You registered successfully";
                 return RedirectToAction("Index", "Home");
 
@@ -69,9 +72,9 @@ namespace eCommerce.Controllers
                 if (member != null)
                 {
                     TempData["Message"] = "Logged in successfully";
-                    // create session
-                    _httpAccessor.HttpContext.Session.SetInt32("MemberId", member.MemberId);
-                    _httpAccessor.HttpContext.Session.SetString("Username", member.Username);
+
+                    // use SessionHelper methods
+                    SessionHelper.LogUserIn(_httpAccessor, member.MemberId, member.Username);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -80,6 +83,7 @@ namespace eCommerce.Controllers
                     // AddModelError without key displays error message in the validation summary that is auto generated and for modelErrors
                     ModelState.AddModelError(string.Empty,"I'm sorry, you're credentials did not match any records in our database");
                 }
+             
             }
 
             return View(model);
@@ -91,8 +95,7 @@ namespace eCommerce.Controllers
 
         public IActionResult Logout()
         {
-            // clear all session data, display message if desired, redirect to homePage
-            _httpAccessor.HttpContext.Session.Clear();
+            SessionHelper.LogUserOut(_httpAccessor);
             TempData["Message"] = "You have been logged out";
             return RedirectToAction("Index", "Home");
         }
