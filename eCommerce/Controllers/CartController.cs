@@ -26,23 +26,23 @@ namespace eCommerce.Controllers
         {
             VideoGame g = await VideoGameDb.GetGameById(id, _context);
 
+            CartHelper.Add(_httpAccessor, g);
+            return RedirectToAction("Index", "Library");
+
             // get game with the associated id, add the game to a cookie,
             // redirect to catalog, 
 
             // convert object to string using Json.NET
-            string data = JsonConvert.SerializeObject(g);
+            //string data = JsonConvert.SerializeObject(g);
 
-            // set up cookie
-            CookieOptions options = new CookieOptions()
-            {
-                Secure = true,
-                MaxAge = TimeSpan.FromDays(14) // two weeks
-            };
+            //// set up cookie
+            //CookieOptions options = new CookieOptions()
+            //{
+            //    Secure = true,
+            //    MaxAge = TimeSpan.FromDays(14) // two weeks
+            //};
 
-            _httpAccessor.HttpContext.Response.Cookies.Append("CartCookie", data, options);
-
-            return RedirectToAction("Index", "Library");
-
+            //_httpAccessor.HttpContext.Response.Cookies.Append("CartCookie", data, options);
 
         }
 
