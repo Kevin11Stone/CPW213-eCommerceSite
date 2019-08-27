@@ -145,13 +145,51 @@ namespace eCommerce.Data
 
         }
 
+        /// <summary>
+        /// Searches for games that match the criteria 
+        /// and returns all games that match.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
+        public static async Task<List<VideoGame>> Search(GameContext context, SearchCriteria criteria)
+        {
+            // SELECT * FROM VideoGames - this DOES NOT Query the database
+            IQueryable<VideoGame> allGames = from g in context.VideoGames
+                                             select g;
+            if (criteria.MinPrice.HasValue)
+            {
+                // adds to where clause: game.Price >= criteria.MinPrice
+                allGames = from g in allGames
+                           where g.Price >= criteria.MinPrice
+                           select g;
+            }
+            if (criteria.MaxPrice.HasValue)
+            {
+                allGames = from g in allGames
+                           where g.Price <= criteria.MaxPrice
+                           select g;
+            }
+            if (!string.IsNullOrWhiteSpace(criteria.Title))
+            {
+                // WHERE Game.Title startsWith criteria.Title
+                allGames = from g in allGames
+                           where g.Title.StartsWith(criteria.Title)
+                           select g;
+            }
+            if (!string.IsNullOrWhiteSpace(criteria.Rating))
+            {
+                // WHERE Game.Rating = critera.Rating
+                allGames = from g in allGames
+                           where g.Rating == criteria.Rating
+                           select g;
+            }
 
-      
+            // send final query to database to return results
+            // EF does not send the query until it has to through methods ( ToList(), Contains(), etc. )
+            return await allGames.ToListAsync();
 
-
-
-
-
+        }
     }
 
 
