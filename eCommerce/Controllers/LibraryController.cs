@@ -19,6 +19,41 @@ namespace eCommerce.Controllers
             _context = context;
         }
 
+        // only need HttpGet in this case: we want to make this URL bookmarkable
+        [HttpGet]
+        public async Task<IActionResult> Search(SearchCriteria criteria)
+        {
+            if (ValidSearch(criteria))
+            {
+                criteria.GameResults = await VideoGameDb.Search(_context, criteria);
+            }
+            //else
+            //{
+            //    // handle NullException()
+            //    criteria.GameResults = new List<VideoGame>();
+            //}
+            
+            // returns view with the given information
+            return View(criteria);
+        }
+
+        /// <summary>
+        /// Returns true if user searched by at least one
+        /// piece of criteria.
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
+        private bool ValidSearch(SearchCriteria criteria)
+        {
+            if (criteria.Title == null &&
+                criteria.Rating == null &&
+                criteria.MinPrice == null &&
+                criteria.MaxPrice == null)
+            {
+                return false;
+            }
+            return true;
+        }
 
         [HttpGet] // made id optional using ?
         public async Task<IActionResult> Index(int? id)
