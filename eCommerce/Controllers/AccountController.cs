@@ -40,11 +40,25 @@ namespace eCommerce.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool isUsernameAndEmailAvailable = true;
+
+                if (await MemberDb.IsEmailTaken(_context, m.EmailAddress))
+                {
+                    isUsernameAndEmailAvailable = false;
+                    ModelState.AddModelError(string.Empty, "Email address is taken");
+                }
+                if (await MemberDb.IsUsernameTaken(_context, m.Username))
+                {
+                    isUsernameAndEmailAvailable = false;
+                    ModelState.AddModelError(string.Empty, "Username is taken");
+                }
+                if (!isUsernameAndEmailAvailable)
+                {
+                    return View(m);
+                }
+
                 await MemberDb.Add(_context, m);
-
                 SessionHelper.LogUserIn(_httpAccessor, m.MemberId, m.Username);
-
-
                 TempData["Message"] = "You registered successfully";
                 return RedirectToAction("Index", "Home");
 
