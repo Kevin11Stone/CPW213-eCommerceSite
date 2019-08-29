@@ -10,6 +10,10 @@ namespace eCommerce.Data
     public static class MemberDb
     {
 
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
