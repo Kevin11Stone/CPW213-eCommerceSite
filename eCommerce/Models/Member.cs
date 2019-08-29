@@ -54,6 +54,7 @@ namespace eCommerce.Models
         /// </summary>
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
+        [DateOfBirth]
         // make custom attribute for dynamic date range
 
         //[Range(typeof(DateTime), DateTime.Today.AddYears(-120).ToShortDateString(),
@@ -83,6 +84,26 @@ namespace eCommerce.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
+
+
+    
+    public class DateOfBirthAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+       
+            // Get the value of DateOfBirth for the model
+            DateTime dob = Convert.ToDateTime(value);
+            DateTime oldestAge = DateTime.Today.AddYears(-120);
+            if (dob > DateTime.Today || dob < oldestAge)
+            {
+                string errorMessage = "You cannot be born in the futre" +
+                    "or more than 120 years ago";
+                return new ValidationResult(errorMessage);
+            }
+            return ValidationResult.Success;
+        }
+    } 
 
 
 
